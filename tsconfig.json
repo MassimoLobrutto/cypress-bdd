@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": [
+      "cypress",
+      "node",
+      "cypress-xpath",
+      "reflect-metadata",
+      "@testing-library/cypress"
+    ],
+    "moduleResolution": "bundler",
+    "strict": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "baseUrl": "https://www.chambers.com/",
+    "paths": {
+      "@badeball/cypress-cucumber-preprocessor/*": [
+        "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "../node_modules/@testing-library/cypress/types/index.d.ts",
+    "support/index.d.ts"
+  ]
+}

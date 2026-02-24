@@ -1,0 +1,16 @@
+{
+    "cucumberautocomplete.steps": [
+        "**/*.steps.ts"
+    ],
+    "cucumberautocomplete.syncfeatures": "**/*.feature",
+    "cucumberautocomplete.strictGherkinValidation": false,
+    "cucumberautocomplete.onTypeFormat": true,
+    "cucumberautocomplete.skipDocStringsFormat": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDelete": false,
+    "files.autoSave": "afterDelay",
+    "cucumberautocomplete.formatConfOverride": {},
+    "cucumberautocomplete.customParameters": [],
+    "security.workspace.trust.untrustedFiles": "open",
+    "typescript.updateImportsOnFileMove.enabled": "always"
+}
