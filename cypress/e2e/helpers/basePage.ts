@@ -2,7 +2,7 @@ import { recurse } from 'cypress-recurse';
 
 export default class BasePage {
   inspectObject(object: any) {
-    const util = require('util');
+    const util = require('node:util');
     cy.log('INSPECTED OBJECT = ' + util.inspect(object));
   }
 
@@ -12,18 +12,6 @@ export default class BasePage {
     });
     cy.get(element).first().click();
     cy.get('@open').should('have.been.called');
-  }
-
-  logIntoAD(url: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const secrets = Cypress.$('@secrets').get(0);
-    cy.log('Logging into AD');
-    const options = {
-      username: 'mass_l@hotmail.com',
-      password: 'genocide75',
-      appUrl: url,
-    };
-    cy.task('aadLogin', options);
   }
 
   clickUntilGone(selector: any) {
@@ -45,6 +33,8 @@ export default class BasePage {
   }
 
   clearCookie() {
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(3000);
     cy.get('#onetrust-accept-btn-handler', { timeout: 10000 })
       .should(() => {})
       .then(ele => {

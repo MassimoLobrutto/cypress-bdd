@@ -52,9 +52,6 @@ Then('the login should happen within {int} seconds', threshold => {
 
       cy.log(`### ⏱️ Performance: Login took ${duration.toFixed(2)}s`);
 
-      // Also send to your new terminal log for the CLI demo!
-      cy.task('terminalLog', `Performance: ${duration.toFixed(2)}s (Threshold: ${threshold}s)`);
-
       cy.wrap(duration).should('be.lessThan', threshold);
     });
 });

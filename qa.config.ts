@@ -50,12 +50,6 @@ export default defineConfig({
 
       // 2. Register ALL Tasks in ONE block
       on('task', {
-        // Task for CLI Logging
-        terminalLog(message) {
-          console.log(`\n>>> CLI LOG: ${message}\n`);
-          return null;
-        },
-
         // Your Database Task
         async queryDb({ db, script, timeout = 30000 }) {
           const currentEnv = (config.env.environment || 'qa').toLowerCase();

@@ -10,7 +10,9 @@ dist/
 
 # Test Outputs
 test-results/
-playwright-report/
+cypress/screenshots/
+cypress/videos/
+cypress/reports/
 browserstack-reports/
 logs/
 *.log
@@ -23,3 +25,6 @@ logs/
 
 # Playwright authentication sessions
 .auth/
+
+# Cucumber Logs
+jsonlogs/

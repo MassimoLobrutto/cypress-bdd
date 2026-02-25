@@ -15,8 +15,7 @@
     "experimentalDecorators": true,
     "strict": true,
     "noImplicitAny": false,
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["node", "cypress", "@badeball/cypress-cucumber-preprocessor"]
+    "types": ["node", "cypress", "@testing-library/cypress"]
   },
 
   "ts-node": {
@@ -25,5 +24,5 @@
 
   "include": ["cypress/**/*.ts", "uat.config.ts", "qa.config.ts", "cypress.config.ts", "eslint.config.mjs"],
 
-  "exclude": ["node_modules", "dist", "**/*.d.ts", "cypress/screenshots", "cypress/videos"]
+  "exclude": ["node_modules", "dist", "**/*.d.ts", "cypress/screenshots", "cypress/videos", "cypress/reports"]
 }

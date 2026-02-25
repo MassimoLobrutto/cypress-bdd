@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "test:qa": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file qa.config.ts",
-    "test:uat": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file uat.config.ts",
+    "test:qa": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file qa.config.ts -b chrome",
+    "test:uat": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file uat.config.ts -b chrome",
     "test:report": "node generate-report.cjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
