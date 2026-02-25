@@ -26,56 +26,51 @@
 
 import 'cypress-file-upload';
 import 'cypress-iframe';
-import '@testing-library/cypress/add-commands'
 require('cypress-downloadfile/lib/downloadFileCommand');
-import "cypress-real-events/support";
+import 'cypress-real-events/support';
 
-Cypress.Commands.add("queryDb", (script, config) => {
-    if (!script) {
-        throw new Error('Query must be set');
+// cypress/support/commands.ts
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to query the MS SQL database.
+       */
+      queryDb(db: string, script: string, timeout?: number): Chainable<any>;
     }
+  }
+}
 
-    cy.task('queryDb', { script, config }, { timeout: 400000 }).then((response: any[]) => {
-        let result = [];
-        const flatten = r => Array.isArray(r) && r.length === 1 ? flatten(r[0]) : r;
+Cypress.Commands.add('queryDb', (db: string, script: string, timeout = 30000) => {
+  // Return the entire chain so Cypress knows to wait for the task to finish
+  return cy.task('queryDb', { db, script, timeout }).then(result => {
+    // We log the result, but we don't 'return' anything manually here
+    // Cypress automatically passes the 'result' to the next link in the chain
+    cy.log(`🗄️ DB: ${db} | Rows returned: ${Array.isArray(result) ? result.length : 0}`);
 
-        if (response) {
-            for (let i in response) {
-                result[i] = [];
-                for (let c in (response[i] as any)) {
-                    result[i][c] = (response[i] as any)[c].value;
-                }
-            }
-            result = flatten(result);
-        } else {
-            result = response
-        }
-
-        const keysCount = Object.keys(result).length;
-        const resultLength = result.length;
-
-        if (keysCount === 0 && resultLength === 0) {
-            result = [result];
-        } else if (keysCount > 0 && resultLength === 0) {
-            result = [result];
-        }
-
-        return result;
-    });
+    // By wrapping the result, you make it available for the next .then() in your test
+    cy.wrap(result);
+  });
 });
 
-import 'cypress-wait-until'
+export enum databaseName {
+  shieldfaculty = 'shieldfaculty',
+  shieldstudent = 'shieldstudent',
+}
 
-Cypress.Commands.add('findBySmartRole', (role: any, name: string, options = {}) => {
+import 'cypress-wait-until';
+
+Cypress.Commands.add('findByRegexRole', (role: any, name: string, options = {}) => {
   // This logic is now hidden away and reusable
-  const smartRegex = new RegExp(`^${name.replaceAll(/\s+/g, '\\s+')}`, "i");
-  
+  const smartRegex = new RegExp(`^${name.replaceAll(/\s+/g, '\\s+')}`, 'i');
+
   return cy.findByRole(role, { name: smartRegex, ...options });
 });
 
 // Optional: Add the "All" version too
 Cypress.Commands.add('findAllByRegExRole', (role: any, name: string, options = {}) => {
-  const smartRegex = new RegExp(`^${name.replaceAll(/\s+/g, '\\s+')}`, "i");
-  
+  const smartRegex = new RegExp(`^${name.replaceAll(/\s+/g, '\\s+')}`, 'i');
+
   return cy.findAllByRole(role, { name: smartRegex, ...options });
 });

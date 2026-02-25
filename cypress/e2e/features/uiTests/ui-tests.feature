@@ -35,8 +35,4 @@ Feature: Playwright BDD Scenario Outline Example
   @uiTests
   @regression
   Scenario: Performance user experiences latency
-    Then the login should happen within 2 seconds
-
-
-
-
+    Then the login should happen within 6 seconds

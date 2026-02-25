@@ -4,99 +4,96 @@
 # https://aka.ms/yaml
 
 trigger:
-- none
+  - none
 
 variables:
-  - group : Regression-Vars
+  - group: Regression-Vars
 
 jobs:
-- job: Regression_Testing
-  timeoutInMinutes: 180
+  - job: Regression_Testing
+    timeoutInMinutes: 180
 
-  pool:
-    name: 'Self_Hosted_Agent'
+    pool:
+      name: 'Self_Hosted_Agent'
 
-  steps:
-  - script: echo Regression Testing
-    displayName: 'Regression Testing'
+    steps:
+      - script: echo Regression Testing
+        displayName: 'Regression Testing'
 
-########### NuGet Authenticate ############
+      ########### NuGet Authenticate ############
 
-  - task: NuGetAuthenticate@1
-    displayName: 'NuGet Authenticate'
-    inputs:
-      nuGetServiceConnections: 'chambers-azure-nuget-Regression_Testing'
+      - task: NuGetAuthenticate@1
+        displayName: 'NuGet Authenticate'
+        inputs:
+          nuGetServiceConnections: 'chambers-azure-nuget-Regression_Testing'
 
-########### Whitelist build agent ############
+      ########### Whitelist build agent ############
 
-  - task: AzurePowerShell@5
-    displayName: 'Whitelist build agent'
-    inputs:
-      azureSubscription: 'Chambers and Partners SP-Regression_Testing'
-      ScriptType: 'FilePath'
-      ScriptPath: '$(System.DefaultWorkingDirectory)/templates/scripts/whitelistnsg.ps1'
-      ScriptArguments:
-        -ruleName "Allow_referee_management_Regression_Test_from_buid_agent" `
-        -ruleDesc "Allow referee-management Regression Test agent" `
-        -Priority "445"
-      azurePowerShellVersion: 'LatestVersion'
+      - task: AzurePowerShell@5
+        displayName: 'Whitelist build agent'
+        inputs:
+          azureSubscription: 'Chambers and Partners SP-Regression_Testing'
+          ScriptType: 'FilePath'
+          ScriptPath: '$(System.DefaultWorkingDirectory)/templates/scripts/whitelistnsg.ps1'
+          ScriptArguments: -ruleName "Allow_referee_management_Regression_Test_from_buid_agent" `
+            -ruleDesc "Allow referee-management Regression Test agent" `
+            -Priority "445"
+          azurePowerShellVersion: 'LatestVersion'
 
-########### Install NPM Packages ############
+      ########### Install NPM Packages ############
 
-  - task: Npm@1
-    displayName: 'Install Packages'
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: install
+      - task: Npm@1
+        displayName: 'Install Packages'
+        inputs:
+          command: custom
+          verbose: false
+          customCommand: install
 
-########### Install NX Packages ############
+      ########### Install NX Packages ############
 
-  - task: Npm@1
-    displayName: 'install nx'
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: 'install nx --force'
+      - task: Npm@1
+        displayName: 'install nx'
+        inputs:
+          command: custom
+          verbose: false
+          customCommand: 'install nx --force'
 
+      ######### Whitelist build agent ############
 
-######### Whitelist build agent ############
+      - task: AzurePowerShell@5
+        displayName: 'Cypress Script'
+        inputs:
+          azureSubscription: 'Chambers and Partners SP-Regression_Testing'
+          ScriptType: 'FilePath'
+          ScriptPath: '$(System.DefaultWorkingDirectory)/templates/scripts/cypress.ps1'
+          ScriptArguments: -tag ${env:TAG} `
+            -configfile ${env:CONFIGFILE} `
+            -browser ${env:BROWSER}
+          azurePowerShellVersion: 'LatestVersion'
 
-  - task: AzurePowerShell@5
-    displayName: 'Cypress Script'
-    inputs:
-      azureSubscription: 'Chambers and Partners SP-Regression_Testing'
-      ScriptType: 'FilePath'
-      ScriptPath: '$(System.DefaultWorkingDirectory)/templates/scripts/cypress.ps1'
-      ScriptArguments:
-        -tag ${env:TAG} `
-        -configfile ${env:CONFIGFILE} `
-        -browser ${env:BROWSER}
-      azurePowerShellVersion: 'LatestVersion'
+      # ########### Publish Artifact: testReport ############
 
-# ########### Publish Artifact: testReport ############
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: TestReport'
+        inputs:
+          PathtoPublish: cypress/reports
+          ArtifactName: 'TestReport'
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: TestReport'
-    inputs:
-      PathtoPublish: cypress/reports
-      ArtifactName: 'TestReport'
-
-  - task: Bash@3
-    displayName: 'Auto Testing Gate'
-    inputs:
-      targetType: 'inline'
-      script: |
-        # Write your commands here
-        cd $(System.DefaultWorkingDirectory)/jsonlogs
-        cat log.json | grep "failed" > result.txt
-        value=$( grep -ic "failed" result.txt )
-        if [ $value -eq 0 ]
-        then
-          echo $value
-          echo "PASS"
-        else
-          echo $value
-          echo "FAIL"
-          exit 1
-        fi
+      - task: Bash@3
+        displayName: 'Auto Testing Gate'
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here
+            cd $(System.DefaultWorkingDirectory)/jsonlogs
+            cat log.json | grep "failed" > result.txt
+            value=$( grep -ic "failed" result.txt )
+            if [ $value -eq 0 ]
+            then
+              echo $value
+              echo "PASS"
+            else
+              echo $value
+              echo "FAIL"
+              exit 1
+            fi

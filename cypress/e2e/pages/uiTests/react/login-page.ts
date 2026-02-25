@@ -1,14 +1,16 @@
-const usernameInput = "Username";
-const passwordInput = "Password";
-const loginButton = "Login";
-const errorContainer = '[data-test="error"]';
+const usernameInput = 'Username';
+const passwordInput = 'Password';
+const loginButton = 'Login';
 
 export class SauceLabsLoginPage {
-
   loginToAdminDashboard(username: string, password: string) {
-    cy.findByPlaceholderText(usernameInput).type(username);
+    if (username === '') {
+      cy.findByPlaceholderText(usernameInput).clear();
+    } else {
+      cy.findByPlaceholderText(usernameInput).type(username);
+    }
     cy.findByPlaceholderText(passwordInput).type(password);
-    cy.findByRole("button", { name: loginButton }).click();
+    cy.findByRole('button', { name: loginButton }).click();
   }
 }
 

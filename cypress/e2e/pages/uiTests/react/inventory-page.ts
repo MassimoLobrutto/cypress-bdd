@@ -1,15 +1,11 @@
-const inventoryItem = ".inventory_item";
-const cartLink = ".shopping_cart_link";
-const cartButton = "add to cart";
+const inventoryItem = '.inventory_item';
+const cartLink = '.shopping_cart_link';
+const cartButton = 'Add to cart';
 const brokenImage = 'img[src*="sl-404"]';
 
 export class InventoryPage {
   addItemToCart(itemName: string) {
-    cy.get(inventoryItem)
-      .contains(itemName)
-      .parents(inventoryItem)
-      .findByRole("button", { name: cartButton })
-      .click();
+    cy.get(inventoryItem).contains(itemName).parents(inventoryItem).findByRole('button', { name: cartButton }).click();
   }
 
   goToCart() {

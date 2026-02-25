@@ -5,13 +5,7 @@
     "module": "ESNext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": [
-      "cypress",
-      "node",
-      "cypress-xpath",
-      "reflect-metadata",
-      "@testing-library/cypress"
-    ],
+    "types": ["cypress", "node", "cypress-xpath", "reflect-metadata", "@testing-library/cypress"],
     "moduleResolution": "bundler",
     "strict": false,
     "resolveJsonModule": true,
@@ -19,16 +13,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "baseUrl": "https://www.chambers.com/",
+    "baseUrl": "https://jsonplaceholder.typicode.com",
     "paths": {
       "@badeball/cypress-cucumber-preprocessor/*": [
         "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
       ]
     }
   },
-  "include": [
-    "**/*.ts",
-    "../node_modules/@testing-library/cypress/types/index.d.ts",
-    "support/index.d.ts"
-  ]
+  "include": ["**/*.ts", "../node_modules/@testing-library/cypress/types/index.d.ts", "support/index.d.ts"]
 }

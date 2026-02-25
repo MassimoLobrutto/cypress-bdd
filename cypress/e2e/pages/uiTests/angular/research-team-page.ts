@@ -1,6 +1,6 @@
-import BasePage from "../../../helpers/basePage.js";
+import BasePage from '../../../helpers/basePage.js';
 
-const nameFieldText = "Search by first or last name";
+const nameFieldText = 'Search by first or last name';
 
 class ResearchTeamPage extends BasePage {
   enterName(name) {
@@ -8,7 +8,7 @@ class ResearchTeamPage extends BasePage {
   }
 
   selectGuide(guide) {
-    cy.get("select").first().select(guide);
+    cy.get('select').first().select(guide);
   }
 }
 

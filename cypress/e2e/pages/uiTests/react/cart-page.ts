@@ -1,24 +1,10 @@
+const cartItem = '.cart_item';
+const checkoutButton = 'Checkout';
+const continueShoppingButton = 'Continue Shopping';
+
 export class CartPage {
-  // Selectors as getter methods for cleaner access
-  get cartItems() {
-    return cy.get('.cart_item');
-  }
-
-  get checkoutButton() {
-    // Cypress equivalent of getByRole('button', { name: 'Checkout' })
-    return cy.contains('button', /checkout/i);
-  }
-
-  get continueShoppingButton() {
-    return cy.contains('button', /continue shopping/i);
-  }
-
-  removeItem(itemName) {
-    /**
-     * Logic: Find the cart item containing the text, 
-     * then find the 'Remove' button inside that specific row.
-     */
-    this.cartItems
+  removeItem(itemName: string) {
+    cy.get(cartItem)
       .contains(itemName)
       .parents('.cart_item') // Moves up to the container
       .find('button')
@@ -27,11 +13,11 @@ export class CartPage {
   }
 
   checkout() {
-    this.checkoutButton.click();
+    cy.contains('button', checkoutButton).click();
   }
 
   continueShopping() {
-    this.continueShoppingButton.click();
+    cy.contains('button', continueShoppingButton).click();
   }
 }
 

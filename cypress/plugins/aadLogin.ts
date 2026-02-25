@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer-core');
-const dns = require("node:dns");
+const dns = require('node:dns');
 
 interface Options {
   username?: string;
@@ -15,7 +15,7 @@ module.exports = {
     return null;
   },
   async aadLogin(options: Options = {}) {
-    dns.setDefaultResultOrder('ipv4first')
+    dns.setDefaultResultOrder('ipv4first');
     const username = options.username;
     const password = options.password;
     const appUrl = options.appUrl;
@@ -24,7 +24,7 @@ module.exports = {
     const submitButtonSelector = 'input[type=submit]';
     const browser = await puppeteer.connect({
       browserURL: `http://localhost:${debuggingPort}`,
-      setTimeout: 30000
+      setTimeout: 30000,
     });
     const page = await browser.newPage();
     await page.goto(appUrl);
@@ -50,7 +50,7 @@ module.exports = {
     await page.waitForNavigation({ timeout: 300000 });
     const element = await Promise.race([
       new Promise<void>(resolve => setTimeout(() => resolve(), 200)),
-      page.waitForSelector('input[type=submit]', { visible: true }, { timeout: 300000 })
+      page.waitForSelector('input[type=submit]', { visible: true }, { timeout: 300000 }),
     ]);
     if (element) {
       await page.click(submitButtonSelector);
