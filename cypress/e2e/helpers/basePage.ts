@@ -34,7 +34,7 @@ export default class BasePage {
 
   clearCookie() {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(3000);
+    cy.wait(2900);
     cy.get('#onetrust-accept-btn-handler', { timeout: 10000 })
       .should(() => {})
       .then(ele => {
