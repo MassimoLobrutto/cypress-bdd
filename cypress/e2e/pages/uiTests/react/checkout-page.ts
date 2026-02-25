@@ -3,7 +3,6 @@ const lastNameInput = 'Last Name';
 const zipCodeInput = 'Zip/Postal Code';
 const continueButton = 'Continue';
 const finishButton = 'Finish';
-const errorIcon = '.error_icon';
 
 export class CheckoutPage {
   fillInformation(firstname: string, lastname: string, zip: string) {

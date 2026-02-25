@@ -34,9 +34,8 @@ import 'cypress-real-events/support';
 declare global {
   namespace Cypress {
     interface Chainable {
-      /**
-       * Custom command to query the MS SQL database.
-       */
+      findByRegexRole(role: string, name: string | RegExp): Chainable<Element>;
+      findAllByRegExRole(role: string, name: string | RegExp): Chainable<Element>;
       queryDb(db: string, script: string, timeout?: number): Chainable<any>;
     }
   }

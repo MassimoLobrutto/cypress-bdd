@@ -2,13 +2,28 @@
   "scripts": {
     "test:qa": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file qa.config.ts",
     "test:uat": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file uat.config.ts",
+    "test:report": "node generate-report.cjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "secretlint": "npx lint-staged",
-    "sort-pkg": "sort-package-json"
+    "secretlint": "secretlint \"**/*\"",
+    "precommit": "lint-staged",
+    "sort-pkg": "sort-package-json",
+    "clean:reports": "rm -rf jsonlogs/* cypress/reports/*"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,feature}": [
+      "prettier --write"
+    ],
+    "*": [
+      "secretlint"
+    ]
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/e2e/step_definitions/**/*.steps.ts",
@@ -27,7 +42,7 @@
     },
     "html": {
       "enabled": true,
-      "output": "./cypress/reports/CHAMBERSAUTOTESTS.html"
+      "output": "./cypress/reports/CYPRESS_TEST_REPORT.html"
     },
     "messages": {
       "enabled": true,
@@ -43,9 +58,20 @@
     "@cypress/grep": "^6.0.0",
     "@deepakvishwakarma/cucumber-json-formatter": "^0.0.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+    "@eslint/compat": "^1.4.1",
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
     "@faker-js/faker": "^10.3.0",
+    "@secretlint/secretlint-rule-npm": "^11.3.1",
+    "@secretlint/secretlint-rule-pattern": "^11.3.1",
     "@secretlint/secretlint-rule-preset-recommend": "^11.3.1",
     "@testing-library/cypress": "^10.0.1",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/js-yaml": "^4.0.9",
+    "@types/mssql": "^9.1.9",
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.0",
     "azure-storage": "^2.10.7",
     "chai-sorted": "^0.2.0",
     "cross-env": "^10.1.0",
@@ -66,11 +92,19 @@
     "cypress-xpath": "^2.0.1",
     "dotenv": "^17.3.1",
     "esbuild": "^0.27.3",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-cypress": "^6.1.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-mocha": "^11.2.0",
+    "eslint-plugin-prettier": "^5.5.5",
     "fs-extra": "^11.2.0",
+    "globals": "^17.3.0",
     "husky": "^9.1.7",
     "jsonschema": "^1.4.1",
     "lint-staged": "^16.2.7",
     "mssql": "^12.2.0",
+    "multiple-cucumber-html-reporter": "^3.10.0",
     "package.json": "^2.0.1",
     "path": "^0.12.7",
     "prettier": "^3.8.1",
@@ -85,6 +119,7 @@
     "sort-package-json": "^3.6.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.0",
     "typescript-string-operations": "^1.5.0"
   }
 }

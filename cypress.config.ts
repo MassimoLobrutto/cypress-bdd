@@ -37,7 +37,6 @@ export default defineConfig({
         dotenv.config({ path: envPath });
       }
 
-      // 1. Initialize Cucumber
       await addCucumberPreprocessorPlugin(on, config);
 
       on(
@@ -46,9 +45,6 @@ export default defineConfig({
           plugins: [NodeModulesPolyfillPlugin(), createEsbuildPlugin(config)],
         })
       );
-
-      // 2. Register ALL Tasks (SQL + Azure + Shared Vars)
-      let sharedValue: any;
 
       // cypress.config.ts
       on('task', {
@@ -88,13 +84,15 @@ export default defineConfig({
             await pool.close();
             return processedData;
           } catch (err) {
-            console.error('SQL Task Error:', err.message);
-            throw err;
+            if (err instanceof Error) {
+              console.error('SQL Task Error:', err.message);
+            } else {
+              console.error('An unexpected error occurred:', err);
+            }
           }
         },
       });
 
-      // 3. Clean reports before run
       on('before:run', () => {
         const reportDir = './cypress/reports';
         if (fs.existsSync(reportDir)) fs.emptyDirSync(reportDir);

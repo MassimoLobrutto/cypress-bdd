@@ -30,34 +30,6 @@ Cypress.on('uncaught:exception', (err, runnable, promise) => {
   }
 });
 
-function loginViaAAD(username, password, url) {
-  cy.visit(url);
-
-  cy.origin('login.microsoftonline.com', { args: { username } }, ({ username }) => {
-    cy.get('input[type="email"]').type(username, { log: false });
-    cy.get('input[type="submit"]').click();
-  });
-
-  cy.origin('login.microsoftonline.com', { args: { password } }, ({ password }) => {
-    cy.get('input[type="password"]').type(password, { log: false });
-    cy.get('input[type="submit"]').click();
-    // Optional: Wait for the "Stay signed in?" prompt if it appears
-    cy.get('#idBtn_Back', { timeout: 10000 }).click();
-  });
-}
-
-Cypress.Commands.add('loginToAAD', (username, password, url) => {
-  const log = Cypress.log({
-    displayName: 'Azure AD',
-    message: [`🔐 ${username}`],
-    autoEnd: false,
-  });
-  log.snapshot('before');
-  loginViaAAD(username, password, url);
-  log.snapshot('after');
-  log.end();
-});
-
 beforeEach(() => {
   const now = new Date();
   cy.setCookie('OptanonAlertBoxClosed', now.toISOString());

@@ -1,24 +1,29 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "types": ["cypress", "node", "cypress-xpath", "reflect-metadata", "@testing-library/cypress"],
-    "moduleResolution": "bundler",
-    "strict": false,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "module": "NodeNext",
+    "lib": ["ESNext", "dom"],
     "esModuleInterop": true,
+    "moduleResolution": "NodeNext",
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist",
     "skipLibCheck": true,
-    "isolatedModules": true,
-    "baseUrl": "https://jsonplaceholder.typicode.com",
-    "paths": {
-      "@badeball/cypress-cucumber-preprocessor/*": [
-        "./node_modules/@badeball/cypress-cucumber-preprocessor/dist/subpath-entrypoints/*"
-      ]
-    }
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node", "cypress", "@badeball/cypress-cucumber-preprocessor"]
   },
-  "include": ["**/*.ts", "../node_modules/@testing-library/cypress/types/index.d.ts", "support/index.d.ts"]
+
+  "ts-node": {
+    "esm": true
+  },
+
+  "include": ["cypress/**/*.ts", "uat.config.ts", "qa.config.ts", "cypress.config.ts", "eslint.config.mjs"],
+
+  "exclude": ["node_modules", "dist", "**/*.d.ts", "cypress/screenshots", "cypress/videos"]
 }

@@ -36,13 +36,13 @@ export class ApiPage extends BasePage {
   }
 
   createBooking() {
-    let firstname = 'John';
-    let lastname = 'Wick';
-    let totalprice = 1111;
-    let depositpaid = true;
-    let checkin = '2018-01-01';
-    let checkout = '2019-01-01';
-    let additionalneeds = '9mm Ammo';
+    const firstname = 'John';
+    const lastname = 'Wick';
+    const totalprice = 1111;
+    const depositpaid = true;
+    const checkin = '2018-01-01';
+    const checkout = '2019-01-01';
+    const additionalneeds = '9mm Ammo';
     payload = `{
             "firstname" : "${firstname}",
             "lastname" : "${lastname}",
@@ -70,13 +70,13 @@ export class ApiPage extends BasePage {
   }
 
   updateBooking() {
-    let firstname = 'Jack';
-    let lastname = 'Reacher';
-    let totalprice = 9999;
-    let depositpaid = false;
-    let checkin = '2020-01-01';
-    let checkout = '2021-02-02';
-    let additionalneeds = '7.62 Ammo';
+    const firstname = 'Jack';
+    const lastname = 'Reacher';
+    const totalprice = 9999;
+    const depositpaid = false;
+    const checkin = '2020-01-01';
+    const checkout = '2021-02-02';
+    const additionalneeds = '7.62 Ammo';
     payload = `{
             "firstname" : ${firstname},
             "lastname" : ${lastname},

@@ -1,10 +1,8 @@
-const timeOutLength = 15000;
-import { db } from './dbHelpers';
 import { recurse } from 'cypress-recurse';
 
 export default class BasePage {
   inspectObject(object: any) {
-    var util = require('util');
+    const util = require('util');
     cy.log('INSPECTED OBJECT = ' + util.inspect(object));
   }
 
@@ -17,6 +15,7 @@ export default class BasePage {
   }
 
   logIntoAD(url: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const secrets = Cypress.$('@secrets').get(0);
     cy.log('Logging into AD');
     const options = {
@@ -46,8 +45,7 @@ export default class BasePage {
   }
 
   clearCookie() {
-    cy.wait(1000);
-    cy.get('#onetrust-accept-btn-handler')
+    cy.get('#onetrust-accept-btn-handler', { timeout: 10000 })
       .should(() => {})
       .then(ele => {
         if (ele.length == 1) {
@@ -58,7 +56,7 @@ export default class BasePage {
 
   //generates random email with syntax Math.floor([lower limit]] + Math.random() * [upper limit])
   randomNumber() {
-    var result = Math.floor(100000 + Math.random() * 900000);
+    const result = Math.floor(100000 + Math.random() * 900000);
     return result;
   }
 }

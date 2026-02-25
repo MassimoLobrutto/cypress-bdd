@@ -1,5 +1,8 @@
 node_modules/
-playwright-report
+cypress/reports/**/*
+cypress/screenshots/**/*
+cypress/videos/**/*
+*.html
 
 .vscode/
 .idea/

@@ -5,5 +5,8 @@
   "cucumberautocomplete.syncfeatures": "cypress/e2e/**/*.feature",
   "cucumberautocomplete.strictGherkinCompletion": true,
   "cucumberautocomplete.smartSnippets": true,
-  "cucumberautocomplete.stepsInvariants": true
+  "cucumberautocomplete.stepsInvariants": true,
+  "sonarlint.analyzerProperties": {
+    "sonar.exclusions": "**/cypress/reports/**/*, **/*.html"
+  }
 }

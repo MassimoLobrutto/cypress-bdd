@@ -1,7 +1,6 @@
 const inventoryItem = '.inventory_item';
 const cartLink = '.shopping_cart_link';
 const cartButton = 'Add to cart';
-const brokenImage = 'img[src*="sl-404"]';
 
 export class InventoryPage {
   addItemToCart(itemName: string) {
