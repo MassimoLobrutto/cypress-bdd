@@ -1,0 +1,46 @@
+[
+  {
+    "description": "  As a database user\n  I want to be able to search on the database\n  So that I can verify database helper methods are working correctly",
+    "elements": [
+      {
+        "description": "",
+        "id": "test-database-methods;verify-database-query-results-are-printed-correctly",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Verify database query results are printed correctly",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "I query db and print results",
+            "match": {
+              "location": "not available:0"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1054000000
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@databaseTests",
+            "line": 6
+          },
+          {
+            "name": "@regression",
+            "line": 7
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "test-database-methods",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Test Database methods",
+    "tags": [],
+    "uri": "cypress\\e2e\\features\\databaseTests\\database-tests.feature"
+  }
+]

@@ -1,9 +1,14 @@
 {
   "scripts": {
+    "test:qa": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file qa.config.ts",
+    "test:uat": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file uat.config.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky",
     "prettier": "prettier . --check",
     "prettier:fix": "prettier . --write",
-    "test:qa": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file qa.config.ts",
-    "test:uat": "cross-env CYPRESS_SKIP_ENV_VAR_DEPRECATION_WARNING=1 npx cypress run --config-file uat.config.ts"
+    "secretlint": "npx lint-staged",
+    "sort-pkg": "sort-package-json"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/e2e/step_definitions/**/*.steps.ts",

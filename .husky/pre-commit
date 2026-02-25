@@ -1,0 +1,14 @@
+echo "🛡️  Checking code integrity..."
+
+# 1. Check for secrets first (Security is priority #1)
+npm run secretlint || exit 1
+
+# 2. Linting & Formatting (Find syntax errors and style issues)
+npm run lint || exit 1
+npm run prettier || exit 1
+
+# 3. Regenerate BDD tests (Ensures Gherkin and TS match)
+# We run this last to ensure the newly generated files are also valid
+npm run bddgen || exit 1
+
+echo "✅ Code looks clean. Committing..."
